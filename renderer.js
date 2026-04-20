@@ -1,8 +1,9 @@
 // renderer.js
 // Canvas rendering for Janktris
-import { ARENA_COLS, ARENA_ROWS, CELL_SIZE } from './engine.js';
+import { ARENA_COLS, ARENA_ROWS, CELL_SIZE, BLOCK_COLORS } from './engine.js';
 
 let ctx, canvas;
+let testBlocks = [];
 
 export function initRenderer() {
   canvas = document.getElementById('arena');
@@ -39,7 +40,30 @@ export function drawArena() {
   ctx.restore();
 }
 
+export function drawBlock(block) {
+  const color = BLOCK_COLORS[block.shapeId];
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  for (const cell of block.getCells()) {
+    ctx.fillRect(cell.x * CELL_SIZE, cell.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    ctx.strokeRect(cell.x * CELL_SIZE, cell.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+  }
+  ctx.restore();
+}
+
 export function renderLoop() {
   drawArena();
+  // Test: draw all block shapes at fixed positions
+  if (testBlocks.length) {
+    for (const block of testBlocks) {
+      drawBlock(block);
+    }
+  }
   requestAnimationFrame(renderLoop);
+}
+
+export function setTestBlocks(blocks) {
+  testBlocks = blocks;
 }
