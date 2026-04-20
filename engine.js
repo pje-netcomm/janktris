@@ -92,6 +92,21 @@ export function fixBlock() {
       arena[cell.y][cell.x] = activeBlock.shapeId;
     }
   }
+  clearFullRows(arena);
+}
+
+// Row clearing logic
+export function clearFullRows(arena) {
+  let rowsCleared = 0;
+  for (let y = ARENA_ROWS - 1; y >= 0; y--) {
+    if (arena[y].every(cell => cell)) {
+      arena.splice(y, 1);
+      arena.unshift(Array(ARENA_COLS).fill(null));
+      rowsCleared++;
+      y++; // recheck this row index after shifting
+    }
+  }
+  return rowsCleared;
 }
 
 export function startGame() {
