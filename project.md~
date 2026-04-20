@@ -1,0 +1,56 @@
+# Name
+Janktris
+
+# Description
+A basic tetris clone.
+
+# Tooling and environment
+- Running in a browser only
+- Using only HTML, CSS, Javascript or publicly sources libraries.
+- Use playwrite to validate the app is working
+- Use browser local storage for any data persistence
+
+# Features
+- Game Mechanics:
+    - A game based on falling variously-shaped blocks that must fit together to make
+      complete horizontal lines which disappear to avoid the play arena filling up.
+    - The play arena consists of a local space with 20 columns and 40 rows
+    - Blocks consist of the following shapes, where each X is the size of an arena cell space:
+       - XX  XXXXXX   XXX     XX   XX
+         XX            X       XX
+    - A random block appears at the middle/top of the play arena, and proceeds to drop down at rate of 1 row every second.
+    - The block is initially rotated by a random multiple of 90 degrees when it appears
+    - The block can be rotated left or right by 90 degrees using the keyboard (as long as it doesn't collide with the side of the arena or another block)
+    - When the block would collide with another block or the bottom of the arena it is fixed in place, and a new block is chosen to drop.
+    - If any row in the arena consists of cells filled by block segments, it disappears and all filled cells above it drop down 1 row.
+    - The game ends if any block reaches a fixed location and the top row has any
+      filled cells, or if a newly chosen block can't be placed because it would
+      collide with a filled cell on the arena.
+    - Score by counting completed rows (10 points), and the number of blocks
+      placed (1 point). Give bonus points where multiple rows are cleared by
+      placement of a single block
+    - Down-arrow key causes the current block fall to be accelerated by one row every 0.1 seconds (and no further rotations are allowed for the block)
+    - Left and right arrow keys rotate the block left or right
+- Aesthetics:
+    - Use a fun and interesting colour scheme 
+    - Use exciting sounds to represent significant game events, highlighting completed rows,  end of game and start of game
+    - Use appropriately muted sounds to represent other minor in-game progress, such as new blocks appearing blocks moving, blocks rotating.
+- UX Matters:
+    - Display a running total of the current score
+    - Space key pauses the game, making the arena dim, and a message shown indicating the pause
+
+# Release Roadmap
+
+## v0.0.0
+- Initial development and testing of core features.
+
+## v1.0.0
+- Leader Board for high scores
+
+## v2.0.0
+- Difficuty levels:
+    - For every 10 rows cleared, increase level and speed up the rate of block fall.
+    - Level number is used as a score multiplier.
+
+# Bugs
+- 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Janktris</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <h1>Janktris</h1>
+    <div id="game-area">
+      <canvas id="arena" width="400" height="800"></canvas>
+      <div id="ui">
+        <div id="score-label">Score: <span id="score">0</span></div>
+        <div id="version"></div>
+        <div id="controls">
+          <strong>Controls:</strong><br>
+          &larr;/&rarr;: Rotate<br>
+          &darr;: Accelerate<br>
+          Space: Pause
+        </div>
+      </div>
+    </div>
+    <div id="messages"></div>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
