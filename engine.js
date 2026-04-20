@@ -29,12 +29,31 @@ export class Block {
     this.rotation = rotation;
   }
   getCells() {
-    // For now, no rotation logic (added in milestone 6)
+    // Rotation logic (milestone 6)
     const shape = BLOCK_SHAPES[this.shapeId];
-    return shape.map(([dx, dy]) => ({
-      x: this.origin.x + dx,
-      y: this.origin.y + dy
-    }));
+    const angle = (this.rotation || 0) % 360;
+    // Convert angle to radians
+    const rad = angle * Math.PI / 180;
+    // Precompute sin/cos for 90-degree steps
+    let sin = 0, cos = 1;
+    if (angle === 90 || angle === -270) { sin = 1; cos = 0; }
+    else if (angle === 180 || angle === -180) { sin = 0; cos = -1; }
+    else if (angle === 270 || angle === -90) { sin = -1; cos = 0; }
+    // Center of rotation is the first cell (pivot)
+    const [pivotX, pivotY] = shape[0];
+    return shape.map(([dx, dy]) => {
+      // Translate to pivot
+      let x = dx - pivotX;
+      let y = dy - pivotY;
+      // Rotate
+      let rx = Math.round(x * cos - y * sin);
+      let ry = Math.round(x * sin + y * cos);
+      // Translate back
+      return {
+        x: this.origin.x + rx + pivotX,
+        y: this.origin.y + ry + pivotY
+      };
+    });
   }
 }
 
@@ -78,6 +97,21 @@ export function fixBlock() {
 export function startGame() {
   gameState.arena = createArena();
   spawnBlock();
+}
+
+// Rotation for active block
+export function rotateBlock(direction) {
+  if (!gameState.activeBlock) return false;
+  const { activeBlock, arena } = gameState;
+  let newRotation = activeBlock.rotation;
+  if (direction === 'cw') newRotation = (activeBlock.rotation + 90) % 360;
+  if (direction === 'ccw') newRotation = (activeBlock.rotation + 270) % 360;
+  const rotated = new Block(activeBlock.shapeId, activeBlock.origin, newRotation);
+  if (!blockCollides(rotated, arena)) {
+    activeBlock.rotation = newRotation;
+    return true;
+  }
+  return false;
 }
 
 // Arena data structure (2D array)
