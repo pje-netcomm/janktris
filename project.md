@@ -16,8 +16,9 @@ A basic tetris clone.
       complete horizontal lines which disappear to avoid the play arena filling up.
     - The play arena consists of a local space with 20 columns and 40 rows
     - Blocks consist of the following shapes, where each X is the size of an arena cell space:
-       - XX  XXXXXX   XXX     XX   XX
-         XX            X       XX
+       - XX  XXXXX   XXX     XX    XX   xxx
+         XX           X       XX          x
+                                          x
     - A random block appears at the middle/top of the play arena, and proceeds to drop down at rate of 1 row every second.
     - The block is initially rotated by a random multiple of 90 degrees when it appears
     - The block can be rotated left or right by 90 degrees using the keyboard (as long as it doesn't collide with the side of the arena or another block)
@@ -29,8 +30,11 @@ A basic tetris clone.
     - Score by counting completed rows (10 points), and the number of blocks
       placed (1 point). Give bonus points where multiple rows are cleared by
       placement of a single block
-    - Down-arrow key causes the current block fall to be accelerated by one row every 0.1 seconds (and no further rotations are allowed for the block)
-    - Left and right arrow keys rotate the block left or right
+    - Down-arrow key causes the current block fall to be accelerated to one row every 0.1 seconds while the button is held down, and returns to normal speed when the button is released.
+    - Left and right arrow keys shift the block left or right by one cell
+    - z key rotates the block left
+    - d key rotates the block right
+    - When the game ends, display a message indicating the end of the game and the final score, and a button to start a new game.
 - Aesthetics:
     - Use a fun and interesting colour scheme 
     - Use exciting sounds to represent significant game events, highlighting completed rows,  end of game and start of game
@@ -38,6 +42,7 @@ A basic tetris clone.
 - UX Matters:
     - Display a running total of the current score
     - Space key pauses the game, making the arena dim, and a message shown indicating the pause
+    - Show a key legend on the side of the arena to indicate the controls
 
 # Release Roadmap
 

@@ -5,13 +5,14 @@ export const ARENA_COLS = 20;
 export const ARENA_ROWS = 40;
 export const CELL_SIZE = 20; // px
 
-// Block shapes (S, Line-6, T, Z, L)
+// Block shapes (S, Line-6, T, Z, L, I)
 export const BLOCK_SHAPES = {
   S: [ [0,1], [1,1], [1,0], [2,0], [2,-1] ], // S shape
-  LINE: [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0] ], // 6-wide line
-  T: [ [0,0], [1,0], [2,0], [1,1], [1,-1] ], // T shape
-  Z: [ [0,0], [1,0], [1,1], [2,1], [2,2] ], // Z shape
-  L: [ [0,0], [1,0], [2,0], [2,1], [2,2] ] // L shape
+  LINE: [ [0,0], [1,0], [2,0], [3,0], [4,0] ], // 5-wide line
+  T: [ [0,0], [1,0], [2,0], [1,1] ], // T shape
+  Z: [ [0,0], [1,0], [1,1], [2,1] ], // Z shape
+  L: [ [0,0], [1,0] ], // L shape
+  I: [ [0,0], [0,1], [0,2] ] // I shape (vertical line of 3)
 };
 
 export const BLOCK_COLORS = {
@@ -19,7 +20,8 @@ export const BLOCK_COLORS = {
   LINE: '#00ccff',
   T: '#ff00cc',
   Z: '#ff4444',
-  L: '#ffaa00'
+  L: '#ffaa00',
+  I: '#9966ff'
 };
 
 export class Block {

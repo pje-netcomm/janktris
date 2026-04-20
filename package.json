@@ -1,6 +1,6 @@
 {
   "name": "janktris",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Janktris - a browser-based Tetris clone",
   "main": "main.js",
   "scripts": {
@@ -8,5 +8,8 @@
     "start": "npx serve ."
   },
   "author": "Implementer Agent",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "^1.59.1"
+  }
 }

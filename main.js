@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
         if (gameOver) {
-          setMessage('GAME OVER - Press Space');
+          setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
           requestAnimationFrame(gameTick);
           return;
         }
@@ -123,19 +123,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!started || paused || gameOver) return;
         if (e.code === 'ArrowLeft') {
-          if (!fastDrop && rotateBlock('ccw')) playSound('rotate');
+          if (moveBlock('left')) playSound('move');
           e.preventDefault();
         }
         if (e.code === 'ArrowRight') {
-          if (!fastDrop && rotateBlock('cw')) playSound('rotate');
+          if (moveBlock('right')) playSound('move');
           e.preventDefault();
         }
         if (e.code === 'ArrowDown') {
           fastDrop = true;
           e.preventDefault();
         }
-        if (e.code === 'KeyA' && moveBlock('left')) playSound('move');
-        if (e.code === 'KeyD' && moveBlock('right')) playSound('move');
+        if (e.code === 'KeyZ') {
+          if (!fastDrop && rotateBlock('ccw')) playSound('rotate');
+          e.preventDefault();
+        }
+        if (e.code === 'KeyD') {
+          if (!fastDrop && rotateBlock('cw')) playSound('rotate');
+          e.preventDefault();
+        }
       });
       window.addEventListener('keyup', (e) => {
         if (e.code === 'ArrowDown') fastDrop = false;

@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## [v0.0.1] - 2026-04-20
+### Changed
+- **BREAKING**: Updated control scheme for improved usability
+  - Arrow Left/Right now move blocks horizontally (previously rotated)
+  - Z key rotates block counter-clockwise (CCW)
+  - D key rotates block clockwise (CW)
+  - Down arrow accelerates fall while held, returns to normal when released
+  - Space key starts game, pauses/resumes, and restarts after game over
+
+### Added
+- New "I" block shape (vertical 3-cell line) with purple color
+- Updated block shapes to match refined specifications:
+  - LINE: 5 cells (was 6)
+  - T, Z, L: Simplified shapes
+- Improved game over message displays final score and restart instructions
+- Updated on-screen controls legend to reflect new key mappings
+
+### Testing
+- Created comprehensive Playwright E2E test suite (test-controls.js)
+- Verified all controls across 3 block falls (15 total verifications)
+- All control tests passed: movement, rotation, and acceleration
+- Test results documented in testruns.md (E2E-CONTROLS-001)
+
 ## [v0.0.0] - Initial foundation
 - Project initialized
 - Milestone 1: Foundation files and structure created
