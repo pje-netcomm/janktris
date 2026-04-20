@@ -87,12 +87,26 @@ export function moveBlock(dir) {
 
 export function fixBlock() {
   const { activeBlock, arena } = gameState;
+  let blockCells = 0;
   for (const cell of activeBlock.getCells()) {
     if (cell.y >= 0 && cell.y < ARENA_ROWS && cell.x >= 0 && cell.x < ARENA_COLS) {
       arena[cell.y][cell.x] = activeBlock.shapeId;
+      blockCells++;
     }
   }
-  clearFullRows(arena);
+  // Scoring: 1pt per block placed
+  gameState.score += blockCells;
+  // Row clearing and bonuses
+  const rowsCleared = clearFullRows(arena);
+  if (rowsCleared > 0) {
+    gameState.lines += rowsCleared;
+    let bonus = 0;
+    if (rowsCleared === 1) bonus = 10;
+    else if (rowsCleared === 2) bonus = 20;
+    else if (rowsCleared === 3) bonus = 40;
+    else if (rowsCleared === 4) bonus = 100;
+    gameState.score += bonus;
+  }
 }
 
 // Row clearing logic
@@ -137,7 +151,9 @@ export function createArena() {
 // Game state
 export const gameState = {
   arena: createArena(),
-  activeBlock: null
+  activeBlock: null,
+  score: 0,
+  lines: 0
 };
 
 // Random block spawning
