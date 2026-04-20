@@ -106,6 +106,7 @@ export function fixBlock() {
     else if (rowsCleared === 3) bonus = 40;
     else if (rowsCleared === 4) bonus = 100;
     gameState.score += bonus;
+    try { import('./audio.js').then(m => m.playSound('row', rowsCleared > 1)); } catch(e){}
   }
 }
 

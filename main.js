@@ -1,6 +1,7 @@
 import { getVersion } from './version.js';
 
 import { rotateBlock, moveBlock, fixBlock } from './engine.js';
+import { playSound } from './audio.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Display version
@@ -48,15 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
           lastTick = now;
           if (!moveBlock('down')) {
             fixBlock();
+            playSound('fix');
             // Game over check: block fixed in top row
             if (gameState.activeBlock.getCells().some(cell => cell.y < 2)) {
+              playSound('gameover');
               gameOver = true;
               return;
             }
             spawnBlock();
+            playSound('spawn');
             fastDrop = false;
             // Game over check: new block can't spawn
             if (gameState.activeBlock.getCells().some(cell => cell.y < 2 && gameState.arena[cell.y][cell.x])) {
+              playSound('gameover');
               gameOver = true;
               return;
             }
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState.lines = 0;
             gameState.arena = createArena();
             spawnBlock();
+            playSound('start');
             clearMessage();
             return;
           }
@@ -90,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState.lines = 0;
             gameState.arena = createArena();
             spawnBlock();
+            playSound('start');
             clearMessage();
             return;
           }
@@ -98,19 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!started || paused || gameOver) return;
         if (e.code === 'ArrowLeft') {
-          if (!fastDrop) rotateBlock('ccw');
+          if (!fastDrop && rotateBlock('ccw')) playSound('rotate');
           e.preventDefault();
         }
         if (e.code === 'ArrowRight') {
-          if (!fastDrop) rotateBlock('cw');
+          if (!fastDrop && rotateBlock('cw')) playSound('rotate');
           e.preventDefault();
         }
         if (e.code === 'ArrowDown') {
           fastDrop = true;
           e.preventDefault();
         }
-        if (e.code === 'KeyA') moveBlock('left');
-        if (e.code === 'KeyD') moveBlock('right');
+        if (e.code === 'KeyA' && moveBlock('left')) playSound('move');
+        if (e.code === 'KeyD' && moveBlock('right')) playSound('move');
       });
       window.addEventListener('keyup', (e) => {
         if (e.code === 'ArrowDown') fastDrop = false;
