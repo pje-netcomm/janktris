@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   getVersion().then(version => {
     document.getElementById('version').textContent = `Version: ${version}`;
   });
-  // Placeholder for module initialization
-  // Future: initialize engine, renderer, input, etc.
+  // Initialize renderer and start render loop
+  import('./renderer.js').then(({ initRenderer, renderLoop }) => {
+    initRenderer();
+    renderLoop();
+  });
 });
