@@ -38,6 +38,48 @@ export class Block {
   }
 }
 
+function blockCollides(block, arena) {
+  for (const cell of block.getCells()) {
+    if (
+      cell.x < 0 || cell.x >= ARENA_COLS ||
+      cell.y < 0 || cell.y >= ARENA_ROWS ||
+      (arena[cell.y] && arena[cell.y][cell.x])
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function moveBlock(dir) {
+  if (!gameState.activeBlock) return false;
+  const { activeBlock, arena } = gameState;
+  let newOrigin = { ...activeBlock.origin };
+  if (dir === 'down') newOrigin.y += 1;
+  if (dir === 'left') newOrigin.x -= 1;
+  if (dir === 'right') newOrigin.x += 1;
+  const moved = new Block(activeBlock.shapeId, newOrigin, activeBlock.rotation);
+  if (!blockCollides(moved, arena)) {
+    activeBlock.origin = newOrigin;
+    return true;
+  }
+  return false;
+}
+
+export function fixBlock() {
+  const { activeBlock, arena } = gameState;
+  for (const cell of activeBlock.getCells()) {
+    if (cell.y >= 0 && cell.y < ARENA_ROWS && cell.x >= 0 && cell.x < ARENA_COLS) {
+      arena[cell.y][cell.x] = activeBlock.shapeId;
+    }
+  }
+}
+
+export function startGame() {
+  gameState.arena = createArena();
+  spawnBlock();
+}
+
 // Arena data structure (2D array)
 export function createArena() {
   return Array.from({ length: ARENA_ROWS }, () => Array(ARENA_COLS).fill(null));

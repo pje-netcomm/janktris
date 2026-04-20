@@ -10,7 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./renderer.js').then(({ initRenderer, renderLoop }) => {
       spawnBlock();
       initRenderer(() => gameState.activeBlock);
-      renderLoop();
+      // Game tick for falling
+      let lastTick = Date.now();
+      function gameTick() {
+        const now = Date.now();
+        if (now - lastTick >= 1000) {
+          lastTick = now;
+          if (!moveBlock('down')) {
+            fixBlock();
+            spawnBlock();
+          }
+        }
+        requestAnimationFrame(gameTick);
+      }
+      gameTick();
+      renderLoop(() => gameState.arena);
     });
   });
 });

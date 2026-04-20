@@ -55,14 +55,33 @@ export function drawBlock(block) {
   ctx.restore();
 }
 
-export function renderLoop() {
+export function drawArenaBlocks(arena) {
+  for (let y = 0; y < ARENA_ROWS; y++) {
+    for (let x = 0; x < ARENA_COLS; x++) {
+      const shapeId = arena[y][x];
+      if (shapeId) {
+        ctx.save();
+        ctx.fillStyle = BLOCK_COLORS[shapeId];
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        ctx.strokeRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        ctx.restore();
+      }
+    }
+  }
+}
+
+export function renderLoop(arenaGetter) {
   drawArena();
+  // Draw fixed blocks
+  if (arenaGetter) drawArenaBlocks(arenaGetter());
   // Draw active block if present
   if (getActiveBlock) {
     const block = getActiveBlock();
     if (block) drawBlock(block);
   }
-  requestAnimationFrame(renderLoop);
+  requestAnimationFrame(() => renderLoop(arenaGetter));
 }
 
 export function setTestBlocks(blocks) {
