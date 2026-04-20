@@ -1,5 +1,14 @@
 import { getVersion } from './version.js';
 
+// High score storage
+function getHighScore() {
+  return Number(localStorage.getItem('janktris_highscore') || 0);
+}
+function setHighScore(score) {
+  localStorage.setItem('janktris_highscore', score);
+}
+
+
 import { rotateBlock, moveBlock, fixBlock } from './engine.js';
 import { playSound } from './audio.js';
 
@@ -13,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./renderer.js').then(({ initRenderer, renderLoop }) => {
       spawnBlock();
       initRenderer(() => gameState.activeBlock);
+      // High score UI
+      document.getElementById('highscore').textContent = getHighScore();
+      document.getElementById('score').textContent = 0;
       // Game tick for falling
       let lastTick = Date.now();
       let fastDrop = false;
@@ -48,8 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (now - lastTick >= interval) {
           lastTick = now;
           if (!moveBlock('down')) {
+            const prevScore = gameState.score;
             fixBlock();
             playSound('fix');
+            if (gameState.score > getHighScore()) {
+              setHighScore(gameState.score);
+              document.getElementById('highscore').textContent = gameState.score;
+            }
+            document.getElementById('score').textContent = gameState.score;
             // Game over check: block fixed in top row
             if (gameState.activeBlock.getCells().some(cell => cell.y < 2)) {
               playSound('gameover');
