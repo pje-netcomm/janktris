@@ -4,10 +4,12 @@ import { ARENA_COLS, ARENA_ROWS, CELL_SIZE, BLOCK_COLORS } from './engine.js';
 
 let ctx, canvas;
 let testBlocks = [];
+let getActiveBlock = null;
 
-export function initRenderer() {
+export function initRenderer(getActiveBlockFn) {
   canvas = document.getElementById('arena');
   ctx = canvas.getContext('2d');
+  getActiveBlock = getActiveBlockFn;
   drawArena();
 }
 
@@ -55,11 +57,10 @@ export function drawBlock(block) {
 
 export function renderLoop() {
   drawArena();
-  // Test: draw all block shapes at fixed positions
-  if (testBlocks.length) {
-    for (const block of testBlocks) {
-      drawBlock(block);
-    }
+  // Draw active block if present
+  if (getActiveBlock) {
+    const block = getActiveBlock();
+    if (block) drawBlock(block);
   }
   requestAnimationFrame(renderLoop);
 }

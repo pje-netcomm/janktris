@@ -23,7 +23,7 @@ export const BLOCK_COLORS = {
 };
 
 export class Block {
-  constructor(shapeId, origin = {x: 5, y: 2}, rotation = 0) {
+  constructor(shapeId, origin = {x: 10, y: 0}, rotation = 0) {
     this.shapeId = shapeId;
     this.origin = origin;
     this.rotation = rotation;
@@ -36,4 +36,24 @@ export class Block {
       y: this.origin.y + dy
     }));
   }
+}
+
+// Arena data structure (2D array)
+export function createArena() {
+  return Array.from({ length: ARENA_ROWS }, () => Array(ARENA_COLS).fill(null));
+}
+
+// Game state
+export const gameState = {
+  arena: createArena(),
+  activeBlock: null
+};
+
+// Random block spawning
+export function spawnBlock() {
+  const shapeIds = Object.keys(BLOCK_SHAPES);
+  const shapeId = shapeIds[Math.floor(Math.random() * shapeIds.length)];
+  const rotation = Math.floor(Math.random() * 4) * 90;
+  gameState.activeBlock = new Block(shapeId, {x: 10, y: 0}, rotation);
+  return gameState.activeBlock;
 }
