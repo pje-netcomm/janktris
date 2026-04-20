@@ -61,11 +61,16 @@ export class Block {
 
 function blockCollides(block, arena) {
   for (const cell of block.getCells()) {
-    if (
-      cell.x < 0 || cell.x >= ARENA_COLS ||
-      cell.y < 0 || cell.y >= ARENA_ROWS ||
-      (arena[cell.y] && arena[cell.y][cell.x])
-    ) {
+    // Check horizontal bounds
+    if (cell.x < 0 || cell.x >= ARENA_COLS) {
+      return true;
+    }
+    // Check bottom bound
+    if (cell.y >= ARENA_ROWS) {
+      return true;
+    }
+    // Check collision with placed blocks (only for cells inside arena)
+    if (cell.y >= 0 && arena[cell.y] && arena[cell.y][cell.x]) {
       return true;
     }
   }

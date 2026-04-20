@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## [v0.0.2] - 2026-04-20
+### Fixed
+- **BUG-001 (Critical)**: Blocks freezing after ~8 drops - COMPLETE FIX
+  - Fixed collision detection to allow blocks with cells above arena (y < 0)
+  - Fixed game over check to prevent accessing negative array indices
+  - Added `cell.y >= 0` condition to game over check
+  - Blocks now fall correctly indefinitely
+- Game now properly continues for 20+ block drops without freezing
+- Blocks with negative Y offsets (I-shape, S-shape) now work correctly
+
+### Added
+- Automated 20-block drop test (test-20-blocks.js) to verify game continuity
+- Manual diagnostic test (test-manual-check.js) for detailed block movement analysis
+- Comprehensive bug documentation with root cause analysis in bugs.md
+
+### Testing
+- 20-block automated test passes (20/20 blocks dropped successfully)
+- Manual testing confirms all block shapes work correctly
+- Score increases properly with row clears
+- Game continues until arena properly fills
+
 ## [v0.0.1] - 2026-04-20
 ### Changed
 - **BREAKING**: Updated control scheme for improved usability

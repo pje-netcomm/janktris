@@ -68,17 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
               document.getElementById('highscore').textContent = gameState.score;
             }
             document.getElementById('score').textContent = gameState.score;
-            // Game over check: block fixed in top row
-            if (gameState.activeBlock.getCells().some(cell => cell.y < 2)) {
-              playSound('gameover');
-              gameOver = true;
-              return;
-            }
             spawnBlock();
             playSound('spawn');
             fastDrop = false;
-            // Game over check: new block can't spawn
-            if (gameState.activeBlock.getCells().some(cell => cell.y < 2 && gameState.arena[cell.y][cell.x])) {
+            // Game over check: new block collides with existing blocks in playable area
+            if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
               playSound('gameover');
               gameOver = true;
               return;

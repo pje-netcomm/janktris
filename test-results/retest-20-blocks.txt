@@ -1,0 +1,68 @@
+Starting 20-block drop test...
+Game started, testing 20 blocks...
+
+Block 1:
+  Shape: LINE, Pos: (10, 1), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 2:
+  Shape: LINE, Pos: (12, 7), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 3:
+  Shape: LINE, Pos: (10, 12), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 4:
+  Shape: LINE, Pos: (12, 17), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 5:
+  Shape: LINE, Pos: (10, 22), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 6:
+  Shape: LINE, Pos: (12, 27), Rot: 90°
+  ✓ Dropped successfully (Score: 0)
+Block 7:
+  Shape: LINE, Pos: (10, 32), Rot: 90°
+  ✓ Dropped successfully (Score: 5)
+Block 8:
+  Shape: S, Pos: (10, 1), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 9:
+  Shape: S, Pos: (8, 6), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 10:
+  Shape: S, Pos: (10, 11), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 11:
+  Shape: S, Pos: (8, 16), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 12:
+  Shape: S, Pos: (10, 21), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 13:
+  Shape: S, Pos: (8, 26), Rot: 180°
+  ✓ Dropped successfully (Score: 5)
+Block 14:
+  Shape: S, Pos: (10, 31), Rot: 180°
+  ✓ Dropped successfully (Score: 10)
+Block 15:
+  Shape: LINE, Pos: (10, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+Block 16:
+  Shape: LINE, Pos: (12, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+Block 17:
+  Shape: LINE, Pos: (10, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+Block 18:
+  Shape: LINE, Pos: (12, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+Block 19:
+  Shape: LINE, Pos: (10, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+Block 20:
+  Shape: LINE, Pos: (12, 0), Rot: 270°
+  ✓ Dropped successfully (Score: 10)
+
+==================================================
+RESULTS: 20/20 blocks dropped successfully
+
+✓✓✓ TEST PASSED ✓✓✓
