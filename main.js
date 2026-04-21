@@ -15,7 +15,8 @@ import { playSound } from './audio.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Display version
   getVersion().then(version => {
-    const cleanVersion = version.replace('janktris-', '').replace(/-[a-f0-9]+.*$/, ''); document.getElementById('version').textContent = `v${cleanVersion}`;
+    const cleanVersion = version.replace('janktris-', '').replace(/-[a-f0-9]+.*$/, '');
+    document.getElementById('version').textContent = `v${cleanVersion}`;
   });
   // Initialize renderer and start render loop
   import('./engine.js').then(({ gameState, spawnBlock, createArena: createArenaFn }) => {
