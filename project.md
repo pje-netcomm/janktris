@@ -100,8 +100,9 @@ New Feature:
             - expose tunable parameters such as block fall speed and other
               useful values for debugging and testing.
         - statistics:
-            - count of each type of block that has appeared (and percentage of total)
-            - display each block and the statistics next to it.
+            - count of each type of block that has appeared (and percentage of total);
+              display each block and the statistics next to it.
+            - list of recent 20 scores, including reason and any multipliers etc applied.
 ## v1.0.0
 - Leader Board for high scores
 
