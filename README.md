@@ -1,6 +1,6 @@
 # Janktris
 
-A browser-based block drop game built with vanilla JavaScript.
+A browser-based block drop game built with vanilla JavaScript.  Mostly an example of AI generated code, but also a bit of fun.
 
 ## Features
 - Keyboard controls with auto-repeat support
