@@ -61,6 +61,15 @@ bugs:
 - the game doesn't end properly, no end of game message is shown.
 - sound effects aren't working
 
+## v0.1.0
+UX improvements:
+- while paused or ended, game arena should be shaded.
+- end screen should show score and time survived.
+- end screen should display as a modal with look classy.
+
+Bugs:
+- space to start new game doesn't clear the arena
+
 ## v1.0.0
 - Leader Board for high scores
 
