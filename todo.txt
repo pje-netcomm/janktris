@@ -1,7 +1,0 @@
-This file should be ignored by agents.
-
-todo:
--
-
-bugs:
-

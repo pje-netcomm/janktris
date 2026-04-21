@@ -30,10 +30,10 @@ run_test() {
 }
 
 # Core functionality tests
-run_test "test-20-blocks.js" "20-Block Drop Test"
-run_test "test-controls.js" "Control Verification"
-run_test "test-ux-improvements.js" "UX Improvements"
-run_test "test-v0.1.0-complete.js" "v0.1.0 Complete Verification"
+run_test "test-cases/test-20-blocks.js" "20-Block Drop Test"
+run_test "test-cases/test-controls.js" "Control Verification"
+run_test "test-cases/test-ux-improvements.js" "UX Improvements"
+run_test "test-cases/test-v0.1.0-complete.js" "v0.1.0 Complete Verification"
 
 # Summary
 echo "=========================================="
