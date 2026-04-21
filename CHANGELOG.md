@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## [v0.2.1] - 2026-04-21
+### Fixed
+- **Game Over Modal UX**: Improved dialog behavior
+  - Changed "Restart" button to "Close" - only dismisses modal
+  - Any key press dismisses the Game Over modal
+  - GAME OVER message remains visible on main screen after dismissal
+  - Fixed timer continuing to run after game ends
+  - Timer now captures and displays exact end time (frozen)
+  - Modal shows only once, then displays status message
+
+### Added
+- **Escape Dialog Enhancements**: Professional modal keyboard controls
+  - Game pauses automatically when "End Game?" dialog appears
+  - Esc key cancels dialog and resumes game
+  - Enter key activates currently focused button
+  - Tab/Shift+Tab navigation cycles through buttons
+  - Focus wraps around (circular navigation)
+  - First button auto-focused when dialog opens
+  - Previous pause state preserved and restored
+
+### Technical
+- Enhanced modal system with keyboard event handling
+- Added `modalKeyHandler` for Esc, Enter, and Tab keys
+- Modal options now support `enableKeyboard` and `onEscape` callbacks
+- Tab cycling stays within modal buttons (no focus escape)
+- Added `gameEndTime` and `gameOverModalShown` state variables
+- Proper event handler cleanup on modal hide
+
+### Testing
+- Created `test-gameover-fixes.js` - verifies modal UX and timer fixes
+- Created `test-escape-dialog.js` - verifies pause and keyboard controls
+- All existing tests still pass
+
 ## [v0.2.0] - 2026-04-21
 ### Added
 - **Sound Effects**: Implemented Web Audio API for game sounds
