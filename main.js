@@ -16,7 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Display version
   getVersion().then(version => {
     // Remove hash and -dirty, keep up to commit count (e.g. v0.2.0-3)
-    const cleanVersion = version.replace('janktris-', '').replace(/(-\d+)?-g[0-9a-f]+(-dirty)?$/, '');
+    // Extract vA.B.C-D (drop hash and -dirty)
+    const match = version.match(/janktris-(v?\d+\.\d+\.\d+)(?:-(\d+))?(?:-g[0-9a-f]+)?(?:-dirty)?/);
+    let cleanVersion = '';
+    if (match) {
+      cleanVersion = (match[1].startsWith('v') ? '' : 'v') + match[1];
+      if (match[2]) cleanVersion += '-' + match[2];
+    }
     document.getElementById('version').textContent = cleanVersion;
   });
   // Initialize renderer and start render loop
