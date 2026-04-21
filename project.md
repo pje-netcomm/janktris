@@ -81,8 +81,24 @@ Bugs:
 - version display looks weird, make it show only the version number, not the whole string. include the semver and the -n (number of commits since last tag) if it exists, but not the git hash or the '-dirty' suffix.
 
 ## v0.3.0
-New Feature:
+Maintenance:
+- Update all documentation to reflect the current project.md 
+- Run all tests.
+
+New Features:
 - Add favicon
+- More block shapes:
+    - L shape:
+        - X
+        - X
+        - XX
+    - J shape:
+        -  X
+        -  X
+        - XX
+    - S shape:
+        -  XX
+        - XX
 - Settings stored in localStorage:
   - shown on main UI in a format similar to controls.
   - sound effects on/off

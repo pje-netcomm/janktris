@@ -60,11 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Game tick for falling
       let lastTick = Date.now();
       let gameStartTime = null;
+      let gameEndTime = null; // Track when game ended
       let fastDrop = false;
       let paused = false;
       let gameOver = false;
       let started = false;
       let escapePending = false;
+      let gameOverModalShown = false; // Track if modal was already shown
       const messages = document.getElementById('messages');
       function setMessage(msg) {
         messages.textContent = msg;
@@ -99,11 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (gameOver) {
           setArenaShade(true);
-          const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+          const timeSurvived = gameStartTime && gameEndTime ? gameEndTime - gameStartTime : 0;
           setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
-          showModal('Game Over', `Score: ${gameState.score}\nTime: ${formatTime(timeSurvived)}`, [
-            { label: 'Restart', onClick: () => { started = true; gameOver = false; paused = false; gameState.score = 0; gameState.lines = 0; gameState.arena = createArena(); gameStartTime = Date.now(); spawnBlock(); playSound('start'); clearMessage(); hideModal(); } }
-          ]);
+          // Show modal once, then just keep showing the message
+          if (!gameOverModalShown) {
+            gameOverModalShown = true;
+            showModal('Game Over', `Score: ${gameState.score}\nTime: ${formatTime(timeSurvived)}`, [
+              { label: 'Close', onClick: () => { hideModal(); } }
+            ]);
+          }
           requestAnimationFrame(gameTick);
           return;
         }
@@ -126,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gameState.arena[0].some(cell => cell) || gameState.arena[1].some(cell => cell)) {
               playSound('gameover');
               gameOver = true;
-              const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+              gameEndTime = Date.now(); // Capture end time
+              const timeSurvived = gameStartTime ? gameEndTime - gameStartTime : 0;
               setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
               requestAnimationFrame(gameTick);
               return;
@@ -138,7 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
               playSound('gameover');
               gameOver = true;
-              const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+              gameEndTime = Date.now(); // Capture end time
+              const timeSurvived = gameStartTime ? gameEndTime - gameStartTime : 0;
               setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
               requestAnimationFrame(gameTick);
               return;
@@ -152,6 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Keyboard controls
       window.addEventListener('keydown', (e) => {
+        // If game over and modal is visible, any key dismisses it
+        if (gameOver && !document.getElementById('modal').classList.contains('hidden')) {
+          hideModal();
+          e.preventDefault();
+          return;
+        }
+        
         // Block Space and Enter repeat (prevent accidental multiple triggers)
         if (e.repeat && (e.code === 'Space' || e.code === 'Enter')) return;
         
@@ -159,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!started || paused || gameOver || escapePending) return;
           escapePending = true;
           showModal('End Game?', 'Are you sure you want to end the current game?', [
-            { label: 'Yes', onClick: () => { gameOver = true; escapePending = false; } },
+            { label: 'Yes', onClick: () => { gameOver = true; gameEndTime = Date.now(); escapePending = false; } },
             { label: 'No', onClick: () => { escapePending = false; } }
           ]);
           e.preventDefault();
@@ -174,9 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState.lines = 0;
             gameState.arena = createArena();
             gameStartTime = Date.now();
+            gameEndTime = null;
+            gameOverModalShown = false;
             spawnBlock();
             playSound('start');
             clearMessage();
+            hideModal(); // Close any open modal
             return;
           }
           if (gameOver) {
@@ -188,9 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState.lines = 0;
             gameState.arena = createArena(); // FIX: Properly clear arena
             gameStartTime = Date.now();
+            gameEndTime = null;
+            gameOverModalShown = false;
             spawnBlock();
             playSound('start');
             clearMessage();
+            hideModal(); // Close any open modal
             return;
           }
 
@@ -216,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (gameState.arena[0].some(cell => cell) || gameState.arena[1].some(cell => cell)) {
             playSound('gameover');
             gameOver = true;
+            gameEndTime = Date.now(); // Capture end time
             setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
             requestAnimationFrame(gameTick);
             return;
@@ -226,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
             playSound('gameover');
             gameOver = true;
+            gameEndTime = Date.now(); // Capture end time
             setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
             requestAnimationFrame(gameTick);
             return;
