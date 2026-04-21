@@ -139,12 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearMessage();
             return;
           }
-            gameState.arena = createArena();
-            spawnBlock();
-            playSound('start');
-            clearMessage();
-            return;
-          }
+
           paused = !paused;
           e.preventDefault();
         }
