@@ -15,7 +15,8 @@ import { playSound } from './audio.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Display version
   getVersion().then(version => {
-    const cleanVersion = version.replace('janktris-', '');
+    // Remove hash and -dirty, keep up to commit count (e.g. v0.2.0-3)
+    const cleanVersion = version.replace('janktris-', '').replace(/(-\d+)?-g[0-9a-f]+(-dirty)?$/, '');
     document.getElementById('version').textContent = cleanVersion;
   });
   // Initialize renderer and start render loop
