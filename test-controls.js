@@ -124,14 +124,14 @@ async function testControls() {
         console.log(`    ⚠ Right movement may be blocked (before: ${posAfterLeft?.x}, after: ${posAfterRight?.x})`);
       }
       
-      // Test rotate left (Z key)
-      console.log('  Testing Z key (rotate CCW)...');
+      // Test rotate left (A key)
+      console.log('  Testing A key (rotate CCW)...');
       const rotBefore = await page.evaluate(() => window.testGameState?.activeBlock?.rotation);
-      await page.keyboard.press('z');
+      await page.keyboard.press('a');
       await page.waitForTimeout(150);
-      const rotAfterZ = await page.evaluate(() => window.testGameState?.activeBlock?.rotation);
-      if (rotAfterZ !== rotBefore) {
-        console.log(`    ✓ Rotate CCW works (${rotBefore}° → ${rotAfterZ}°)`);
+      const rotAfterA = await page.evaluate(() => window.testGameState?.activeBlock?.rotation);
+      if (rotAfterA !== rotBefore) {
+        console.log(`    ✓ Rotate CCW works (${rotBefore}° → ${rotAfterA}°)`);
         testResults.controlsTested.rotateLeft++;
       } else {
         console.log(`    ⚠ Rotate CCW may be blocked (rotation stayed at ${rotBefore}°)`);
@@ -142,11 +142,11 @@ async function testControls() {
       await page.keyboard.press('d');
       await page.waitForTimeout(150);
       const rotAfterD = await page.evaluate(() => window.testGameState?.activeBlock?.rotation);
-      if (rotAfterD !== rotAfterZ) {
-        console.log(`    ✓ Rotate CW works (${rotAfterZ}° → ${rotAfterD}°)`);
+      if (rotAfterD !== rotAfterA) {
+        console.log(`    ✓ Rotate CW works (${rotAfterA}° → ${rotAfterD}°)`);
         testResults.controlsTested.rotateRight++;
       } else {
-        console.log(`    ⚠ Rotate CW may be blocked (rotation stayed at ${rotAfterZ}°)`);
+        console.log(`    ⚠ Rotate CW may be blocked (rotation stayed at ${rotAfterA}°)`);
       }
       
       // Test acceleration
@@ -193,7 +193,7 @@ async function testControls() {
     console.log(`Blocks placed: ${testResults.blocksPlaced}/3`);
     console.log(`Left movements: ${testResults.controlsTested.left}`);
     console.log(`Right movements: ${testResults.controlsTested.right}`);
-    console.log(`Rotate left (Z): ${testResults.controlsTested.rotateLeft}`);
+    console.log(`Rotate left (A): ${testResults.controlsTested.rotateLeft}`);
     console.log(`Rotate right (D): ${testResults.controlsTested.rotateRight}`);
     console.log(`Acceleration: ${testResults.controlsTested.accelerate}`);
     
