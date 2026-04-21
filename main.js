@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Keyboard controls
       window.addEventListener('keydown', (e) => {
-        // Block Space repeat only (prevent accidental multiple starts/pauses)
-        if (e.repeat && e.code === 'Space') return;
+        // Block Space and Enter repeat (prevent accidental multiple triggers)
+        if (e.repeat && (e.code === 'Space' || e.code === 'Enter')) return;
         
         if (e.code === 'Space') {
           if (!started) {
@@ -127,6 +127,41 @@ document.addEventListener('DOMContentLoaded', () => {
           paused = !paused;
           e.preventDefault();
         }
+        if (e.code === 'Enter') {
+          if (!started || paused || gameOver) return;
+          // Hard drop: Move block down until it can't move anymore
+          while (moveBlock('down')) {
+            // Keep moving down
+          }
+          // Block has hit bottom, fix it
+          const prevScore = gameState.score;
+          fixBlock();
+          playSound('fix');
+          if (gameState.score > getHighScore()) {
+            setHighScore(gameState.score);
+            document.getElementById('highscore').textContent = gameState.score;
+          }
+          document.getElementById('score').textContent = gameState.score;
+          // Game over check 1: Fixed blocks in top 2 rows
+          if (gameState.arena[0].some(cell => cell) || gameState.arena[1].some(cell => cell)) {
+            playSound('gameover');
+            gameOver = true;
+            setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+            requestAnimationFrame(gameTick);
+            return;
+          }
+          spawnBlock();
+          playSound('spawn');
+          // Game over check 2: New block collides with existing blocks in playable area
+          if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
+            playSound('gameover');
+            gameOver = true;
+            setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+            requestAnimationFrame(gameTick);
+            return;
+          }
+          e.preventDefault();
+        }
         if (!started || paused || gameOver) return;
         if (e.code === 'ArrowLeft') {
           if (moveBlock('left')) playSound('move');
@@ -136,11 +171,15 @@ document.addEventListener('DOMContentLoaded', () => {
           if (moveBlock('right')) playSound('move');
           e.preventDefault();
         }
+        if (e.code === 'ArrowUp') {
+          if (!fastDrop && rotateBlock('cw')) playSound('rotate');
+          e.preventDefault();
+        }
         if (e.code === 'ArrowDown') {
           fastDrop = true;
           e.preventDefault();
         }
-        if (e.code === 'KeyZ') {
+        if (e.code === 'KeyA') {
           if (!fastDrop && rotateBlock('ccw')) playSound('rotate');
           e.preventDefault();
         }

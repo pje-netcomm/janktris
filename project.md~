@@ -59,6 +59,7 @@ bugs:
 - version display isn't working, always displays "3695472"
 - all keys should auto repeat
 - the game doesn't end properly, no end of game message is shown.
+- sound effects aren't working
 
 ## v1.0.0
 - Leader Board for high scores

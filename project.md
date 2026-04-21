@@ -32,7 +32,7 @@ A basic tetris clone.
       placement of a single block
     - Down-arrow key causes the current block fall to be accelerated to one row every 0.1 seconds while the button is held down, and returns to normal speed when the button is released.
     - Left and right arrow keys shift the block left or right by one cell
-    - z key rotates the block left
+    - a key rotates the block left
     - d key rotates the block right
     - When the game ends, display a message indicating the end of the game and the final score, and a button to start a new game.
 - Aesthetics:

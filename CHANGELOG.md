@@ -1,6 +1,28 @@
 # CHANGELOG
 
 ## [v0.1.0] - 2026-04-21
+### Added
+- **Hard Drop Feature**: Press Enter to instantly drop block to bottom
+  - Block drops immediately to lowest position
+  - Fixes block and spawns next block automatically
+  - Standard Tetris feature for faster gameplay
+- **Up Arrow Rotation**: Up arrow now rotates blocks clockwise
+  - Provides alternative to D key for right rotation
+  - More intuitive for players familiar with arrow key controls
+- **Improved Control Legend**: Redesigned with elegant two-column layout
+  - Grid-based layout with keys on left, descriptions on right
+  - Golden key badges with subtle glow effect
+  - Gradient background for premium appearance
+  - Easier to scan and more visually appealing
+
+### Changed
+- **Rotation Key**: Changed counter-clockwise rotation from Z to A key
+  - More ergonomic pairing with D key (A/D for left/right rotation)
+  - Matches common gaming control schemes (WASD-like)
+- **Key Repeat**: Enter key now blocked from repeating (like Space)
+  - Prevents accidental multiple hard drops
+  - Space and Enter both block repeat events
+
 ### Fixed
 - **Version Display**: Version now shows actual git tag via build script (was hardcoded to '3695472')
   - Changed version.js to use `__VERSION__` placeholder
@@ -8,8 +30,8 @@
   - Version now displays as "janktris-v0.1.0" format
 - **Key Repeat**: Movement and rotation keys now auto-repeat as expected
   - Removed blanket `if (e.repeat) return;` that blocked all key repeats
-  - Now only blocks Space key repeat: `if (e.repeat && e.code === 'Space') return;`
-  - Arrow keys and Z/D rotation keys now repeat when held
+  - Now only blocks Space and Enter key repeat
+  - Arrow keys and A/D rotation keys now repeat when held
 - **Game Over Detection**: Game now properly ends when blocks reach top
   - Added check after fixBlock() for filled cells in rows 0-1
   - Added check after spawnBlock() for collision with existing blocks in top rows
@@ -21,9 +43,10 @@
   - Console warnings added for failed audio loads
 
 ### Testing
-- Created comprehensive v0.1.0 test suite
+- Created comprehensive UX test suite (test-ux-improvements.js)
+- All 4 UX features verified: Up arrow, A key, Enter hard drop, visual legend
 - Game over test confirms proper detection and message display
-- All 4 critical bugs verified as fixed
+- All bug fixes and UX improvements verified working
 
 ## [v0.0.2] - 2026-04-20
 ### Fixed

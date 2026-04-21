@@ -51,12 +51,47 @@ h1 {
   color: #aaa;
 }
 #controls {
-  font-size: 1em;
+  font-size: 0.95em;
   color: #fff;
-  background: #23234b;
-  border-radius: 6px;
-  padding: 8px 12px;
+  background: linear-gradient(135deg, #2a2a4e 0%, #1a1a3e 100%);
+  border-radius: 8px;
+  padding: 16px;
   margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 102, 255, 0.3);
+}
+
+.controls-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.control-key {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #ffd700;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+  min-width: 50px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.control-desc {
+  color: #e0e0e0;
+  font-size: 0.95em;
 }
 #messages {
   margin-top: 24px;
