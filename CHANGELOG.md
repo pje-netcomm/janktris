@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [v0.1.1] - 2026-04-21
+### Fixed
+- **Test Suite**: Updated test-controls.js to use A key instead of Z
+  - Test was still using old Z key for CCW rotation
+  - Now correctly tests A key (matches v0.1.0 control scheme)
+  - All critical tests now passing
+
 ## [v0.1.0] - 2026-04-21
 ### Added
 - **Hard Drop Feature**: Press Enter to instantly drop block to bottom
