@@ -84,10 +84,6 @@ Bugs:
 - version display looks weird, make it show only the version number, not the whole string. include the semver and the -n (number of commits since last tag) if it exists, but not the git hash or the '-dirty' suffix.
 
 ## v0.3.0
-Maintenance:
-- Update all documentation to reflect the current project.md 
-- Run all tests.
-
 New Features:
 - Add favicon
 - More block shapes:
@@ -109,13 +105,17 @@ New Features:
         -  X
           X X
            X
-- Settings stored in localStorage:
+- Support user configurable settings stored in localStorage:
   - shown on main UI in a format similar to controls.
   - Options for:
       - sound effects on/off
-      - reset cores
-- dev mode:
-    - Started by typing #dangerousdave or #dd during play
+      - reset high scores
+- support hidden commands that can be typed during play to enable hidden features and cheats:
+    - all commands start with #
+    - design code to be easily extensible to add new commands in the future.
+    - first command is #demo clears the UI and displays a block of each type in the arena, then pauses.
+- Add "dev mode" display:
+    - Started by typing #ddave during play
     - Shows a dev panel on the side of the arena.
     - use a tabbed layout with tabs for:
         - list of hidden commands (click on any to execute them)
@@ -130,9 +130,28 @@ New Features:
             - count of each type of block that has appeared (and percentage of total);
               display each block and the statistics next to it.
             - list of recent 20 scores, including reason and any multipliers etc applied.
+
+## v0.4.0
+Maintenance:
+- Update all documentation to reflect the current project.md 
+- Run all tests.
+- review all JS, refactor for
+    - readability and maintainability, and add comments where helpful.
+    - low code duplication (eg: gameover handling looks substantially similar in 4 separate places).
+    - consider using a state machine to manage game states and transitions, which could help reduce code duplication and improve readability.
+    - suggest several other best-practice based improvements to enhance readability, maintainability, performance and correctness.
+
+
 ## v1.0.0
 - Leader Board for high scores
+- Mouse controls to play game:
+    - moving mouse lef or right shifts the block in that direction
+    - rotating mouse wheel rotates the block left or right
+    - right click drops the block to its lowest position
+    - left click accelerates the block fall while held down, and returns to normal speed when released (same as down arrow key)
+    - A configuration setting enables/disables mouse controls
 
+## v1.1.0
 - Option for "ghost" which show a ghost image of where the current block
   would land if it were to drop straight down without any further movement or
   rotation. 
@@ -157,6 +176,13 @@ New Features:
         - "Nightmare" mode:
             - blocks fall at a very fast initial speed, and the speed increases very rapidly as rows are cleared.
             - arena starts with some randomly filled cells to make it more difficult from the start.
+                
+## v2.1.0
+- Dynamic sizing to suite screen-size:
+    - The game should be playable and visually appealing on a variety of screen sizes, from small mobile devices to large desktop monitors.
+    - The size of the play arena and the blocks should adjust dynamically based on the screen size, while maintaining the same aspect ratio and overall layout.
+    - The UI elements such as score display, control legend, and any buttons or dialogs should also adjust their size and position appropriately to ensure a good user experience on different screen sizes.
+    - Maximim size is 20 columns and 40 rows.
 
 ## v3.0.0
 - Background Music:
