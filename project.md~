@@ -68,12 +68,13 @@ bugs:
 ## v0.2.0
 New Feature:
 - Add sound effects.
-- Escape key ends the current game immediately after confirming with the user.
+- Escape key ends the current game mmediately after confirming with the user.
 
 UX improvements:
 - while paused or ended, game arena should be shaded.
 - end screen should show score and time survived.
 - end screen should display as a modal with look classy.
+- dropping the block with down arrow should make a brief low-impact, but unique sound.
 
 Bugs:
 - version doesn't update via build.sh if version was previously updated.
@@ -101,6 +102,7 @@ New Feature:
         - statistics:
             - count of each type of block that has appeared (and percentage of total)
             - display each block and the statistics next to it.
+            - list of recent 20 scores, including reason and any multipliers etc applied.
 ## v1.0.0
 - Leader Board for high scores
 
@@ -118,7 +120,7 @@ New Feature:
 
 
 ## v2.0.0
-- Difficuty levels:
+- Difficulty levels:
     - For every 10 rows cleared, increase level and speed up the rate of block fall.
     - Level number is used as a score multiplier.
     - Allow user to select a difficulty level at the start of the game, which determines the initial speed of block fall and the rate at which it increases as rows are cleared. For example:
