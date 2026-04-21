@@ -61,7 +61,10 @@ bugs:
 - the game doesn't end properly, no end of game message is shown.
 - sound effects aren't working
 
-## v0.1.0
+## v0.2.0
+New Feature:
+- Add sound effects.
+
 UX improvements:
 - while paused or ended, game arena should be shaded.
 - end screen should show score and time survived.
@@ -69,6 +72,9 @@ UX improvements:
 
 Bugs:
 - space to start new game doesn't clear the arena
+- version doesn't update via build.sh if version was previously updated.
+- version display looks weird, make it show only the version number, not the whole string. include the semver and the -n (number of commits since last tag) if it exists, but not the git hash or the '-dirty' suffix.
+
 
 ## v1.0.0
 - Leader Board for high scores

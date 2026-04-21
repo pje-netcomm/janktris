@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## [v0.2.0] - 2026-04-21
+### Added
+- **Sound Effects**: Implemented Web Audio API for game sounds
+  - Generated musical tones for all 8 game events
+  - start (C5), spawn (G4), move (A4), rotate (B4), fix (E4)
+  - row clear (E5), multirow (G5), gameover (G3)
+  - Proper volume levels (subtle for frequent events)
+  - Handles browser autoplay restrictions gracefully
+
+### Changed
+- **Time Tracking**: Game now tracks and displays time survived
+  - Shows format "Xm Ys" on game over screen
+  - Timer starts when game begins
+  - Displayed alongside score
+
+### Fixed
+- **Arena Clear**: Space key now properly clears arena on restart
+  - Fixed bug where previous game blocks remained
+  - Game state fully resets between games
+  - createArena() correctly called on restart
+- **Version Display**: Cleaned up version format
+  - Removed "janktris-" prefix
+  - Removed git hash and "-dirty" suffix
+  - Now shows clean "v0.2.0" or "v0.2.0-2" format
+
+### Technical
+- Replaced 0-byte WAV file placeholders with Web Audio API
+- No external audio files needed
+- ~60 lines of audio generation code
+- Compatible with all modern browsers
+
 ## [v0.1.1] - 2026-04-21
 ### Fixed
 - **Test Suite**: Updated test-controls.js to use A key instead of Z

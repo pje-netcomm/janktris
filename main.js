@@ -15,10 +15,11 @@ import { playSound } from './audio.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Display version
   getVersion().then(version => {
-    document.getElementById('version').textContent = `Version: ${version}`;
+    const cleanVersion = version.replace('janktris-', '').replace(/-[a-f0-9]+.*$/, ''); document.getElementById('version').textContent = `v${cleanVersion}`;
   });
   // Initialize renderer and start render loop
-  import('./engine.js').then(({ gameState, spawnBlock }) => {
+  import('./engine.js').then(({ gameState, spawnBlock, createArena: createArenaFn }) => {
+    const createArena = createArenaFn;
     import('./renderer.js').then(({ initRenderer, renderLoop }) => {
       spawnBlock();
       initRenderer(() => gameState.activeBlock);
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('score').textContent = 0;
       // Game tick for falling
       let lastTick = Date.now();
+      let gameStartTime = null;
       let fastDrop = false;
       let paused = false;
       let gameOver = false;
@@ -37,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       function clearMessage() {
         messages.textContent = '';
+      }
+      function formatTime(ms) {
+        const seconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}m ${secs}s`;
       }
       function gameTick() {
         if (!started) {
@@ -50,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
         if (gameOver) {
-          setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+          const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+          setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
           requestAnimationFrame(gameTick);
           return;
         }
@@ -72,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gameState.arena[0].some(cell => cell) || gameState.arena[1].some(cell => cell)) {
               playSound('gameover');
               gameOver = true;
-              setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+              const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+              setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
               requestAnimationFrame(gameTick);
               return;
             }
@@ -83,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
               playSound('gameover');
               gameOver = true;
-              setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+              const timeSurvived = gameStartTime ? Date.now() - gameStartTime : 0;
+              setMessage(`GAME OVER - Score: ${gameState.score} - Time: ${formatTime(timeSurvived)} - Press Space to Restart`);
               requestAnimationFrame(gameTick);
               return;
             }
@@ -107,17 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState.score = 0;
             gameState.lines = 0;
             gameState.arena = createArena();
+            gameStartTime = Date.now();
             spawnBlock();
             playSound('start');
             clearMessage();
             return;
           }
           if (gameOver) {
-            started = false;
+            // Reset game completely
+            started = true;
             gameOver = false;
             paused = false;
             gameState.score = 0;
             gameState.lines = 0;
+            gameState.arena = createArena(); // FIX: Properly clear arena
+            gameStartTime = Date.now();
+            spawnBlock();
+            playSound('start');
+            clearMessage();
+            return;
+          }
             gameState.arena = createArena();
             spawnBlock();
             playSound('start');
