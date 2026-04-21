@@ -2,5 +2,5 @@
 
 export async function getVersion() {
   // This will be replaced by build script
-  return 'janktris-v0.2.0-13-g604eb3c-dirty'; // e.g. janktris-v0.2.0-3-g8967625-dirty
+  return 'janktris-v0.2.0-14-g03510cf-dirty'; // e.g. janktris-v0.2.0-3-g8967625-dirty
 }

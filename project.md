@@ -47,6 +47,9 @@ A basic tetris clone.
     - Display a running total of the current score
     - Space key pauses the game, making the arena dim, and a message shown indicating the pause
     - Show a key legend on the side of the arena to indicate the controls
+    - All controls should be keyboard accessible.
+        - Dialogs support focus selection of active buttons
+        - Dialogs assume "escape" means close the dialog, and "enter" means select the active button.
 
 # Release Roadmap
 
@@ -90,19 +93,27 @@ New Features:
 - More block shapes:
     - L shape:
         - X
-        - X
-        - XX
+          X
+          XX
     - J shape:
         -  X
-        -  X
-        - XX
+           X
+          XX
     - S shape:
         -  XX
+          XX
+    - Block
         - XX
+          XX
+    - The Cursed Bomb (with very low frequencey of appearance):
+        -  X
+          X X
+           X
 - Settings stored in localStorage:
   - shown on main UI in a format similar to controls.
-  - sound effects on/off
-  - reset cores
+  - Options for:
+      - sound effects on/off
+      - reset cores
 - dev mode:
     - Started by typing #dangerousdave or #dd during play
     - Shows a dev panel on the side of the arena.
@@ -148,6 +159,10 @@ New Features:
             - arena starts with some randomly filled cells to make it more difficult from the start.
 
 ## v3.0.0
+- Background Music:
+    - Add background music that plays during the game, with different tracks for different levels or difficulty settings.
+    - Allow the user to toggle background music on or off in the settings.
+    - Add an option to the dev panel to play any track of background music for testing purposes.
 - Auto-play mode:
     - the game plays itself using an algorithm to determine the best placement
       for each block.
