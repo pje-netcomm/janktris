@@ -49,6 +49,18 @@ A basic tetris clone.
 ## v0.0.0
 - Initial development and testing of core features.
 
+## v0.1.0
+UX improvements:
+- up arrow rotates block right
+- enter drops the block to its lowest position
+- improve control legend for readability using separate columns for key description. Make it look classy.
+
+bugs:
+- version display isn't working, always displays "3695472"
+- all keys should auto repeat
+- the game doesn't end properly, no end of game message is shown.
+- sound effects aren't working
+
 ## v1.0.0
 - Leader Board for high scores
 

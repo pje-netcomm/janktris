@@ -68,13 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
               document.getElementById('highscore').textContent = gameState.score;
             }
             document.getElementById('score').textContent = gameState.score;
+            // Game over check 1: Fixed blocks in top 2 rows
+            if (gameState.arena[0].some(cell => cell) || gameState.arena[1].some(cell => cell)) {
+              playSound('gameover');
+              gameOver = true;
+              setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+              requestAnimationFrame(gameTick);
+              return;
+            }
             spawnBlock();
             playSound('spawn');
             fastDrop = false;
-            // Game over check: new block collides with existing blocks in playable area
+            // Game over check 2: New block collides with existing blocks in playable area
             if (gameState.activeBlock.getCells().some(cell => cell.y >= 0 && cell.y < 2 && gameState.arena[cell.y][cell.x])) {
               playSound('gameover');
               gameOver = true;
+              setMessage(`GAME OVER - Score: ${gameState.score} - Press Space to Start New Game`);
+              requestAnimationFrame(gameTick);
               return;
             }
           }
@@ -86,7 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Keyboard controls
       window.addEventListener('keydown', (e) => {
-        if (e.repeat) return;
+        // Block Space repeat only (prevent accidental multiple starts/pauses)
+        if (e.repeat && e.code === 'Space') return;
+        
         if (e.code === 'Space') {
           if (!started) {
             started = true;

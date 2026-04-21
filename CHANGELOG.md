@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## [v0.1.0] - 2026-04-21
+### Fixed
+- **Version Display**: Version now shows actual git tag via build script (was hardcoded to '3695472')
+  - Changed version.js to use `__VERSION__` placeholder
+  - Build script (build.sh) replaces placeholder with `git describe` output
+  - Version now displays as "janktris-v0.1.0" format
+- **Key Repeat**: Movement and rotation keys now auto-repeat as expected
+  - Removed blanket `if (e.repeat) return;` that blocked all key repeats
+  - Now only blocks Space key repeat: `if (e.repeat && e.code === 'Space') return;`
+  - Arrow keys and Z/D rotation keys now repeat when held
+- **Game Over Detection**: Game now properly ends when blocks reach top
+  - Added check after fixBlock() for filled cells in rows 0-1
+  - Added check after spawnBlock() for collision with existing blocks in top rows
+  - Game over message now displays immediately when triggered
+  - Fixed issue where `gameOver = true` returned without setting message
+- **Sound Effects**: Added error handling for audio file loading
+  - Added .catch() handlers for autoplay restrictions
+  - Audio files are 0-byte placeholders but don't crash game
+  - Console warnings added for failed audio loads
+
+### Testing
+- Created comprehensive v0.1.0 test suite
+- Game over test confirms proper detection and message display
+- All 4 critical bugs verified as fixed
+
 ## [v0.0.2] - 2026-04-20
 ### Fixed
 - **BUG-001 (Critical)**: Blocks freezing after ~8 drops - COMPLETE FIX
